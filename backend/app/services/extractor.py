@@ -1,9 +1,13 @@
 import fitz
 
 from app.models.document_info import DocumentInfo
+from app.services.ocr import OCRService
 
 
 class DocumentExtractor:
+
+    def __init__(self):
+        self.ocr = OCRService()
 
     def inspect(self, pdf_path: str) -> DocumentInfo:
         document = fitz.open(pdf_path)
@@ -29,6 +33,25 @@ class DocumentExtractor:
         )
 
     def extract_text(self, pdf_path: str) -> str:
+        """
+        Public API.
+
+        Determines the appropriate extraction strategy based on the
+        document inspection results.
+        """
+
+        info = self.inspect(pdf_path)
+
+        if info.requires_ocr:
+            return self.extract_text_ocr(pdf_path)
+
+        return self.extract_text_native(pdf_path)
+
+    def extract_text_native(self, pdf_path: str) -> str:
+        """
+        Extract text directly from digitally generated PDFs.
+        """
+
         document = fitz.open(pdf_path)
 
         text = ""
@@ -37,3 +60,10 @@ class DocumentExtractor:
             text += page.get_text()
 
         return text
+
+    def extract_text_ocr(self, pdf_path: str) -> str:
+        """
+        Delegate OCR processing to the OCR service.
+        """
+
+        return self.ocr.extract(pdf_path)

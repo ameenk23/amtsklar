@@ -1,20 +1,17 @@
-from app.services.classifier import DocumentClassifier
 from app.models.enums import DocumentType
+from app.services.classifier import DocumentClassifier
 
-classifier = DocumentClassifier()
 
-sample_text = """
-Westdeutscher Rundfunk Köln
+def test_classifier():
 
-Festsetzungsbescheid
+    classifier = DocumentClassifier()
 
-Sehr geehrte Frau...
-"""
+    sample_text = """
+    Westdeutscher Rundfunk Köln
 
-result = classifier.classify(sample_text)
+    Festsetzungsbescheid
+    """
 
-print(result)
+    result = classifier.classify(sample_text)
 
-assert result == DocumentType.FESTSETZUNGSBESCHEID
-
-print("✅ Classifier test passed.")
+    assert result == DocumentType.FESTSETZUNGSBESCHEID

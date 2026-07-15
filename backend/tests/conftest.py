@@ -2,4 +2,11 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-DATA_DIR = PROJECT_ROOT / "data" / "samples"
+SAMPLE_RUNDFUNK = (
+    PROJECT_ROOT
+    / "data"
+    / "samples"
+    / "rundfunk"
+    / "festsetzungsbescheid"
+    / "sample_001.pdf"
+)
