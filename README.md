@@ -110,33 +110,39 @@ Users should be able to understand
 ---
 
 # System Architecture
-
-                    Upload
-                       │
-                       ▼
-             Preprocessing Gate
-                       │
-          ┌────────────┴────────────┐
-          │                         │
-          ▼                         ▼
-     Native PDF               Image / Scan
-          │                         │
-          ▼                         ▼
-   Native Extraction         OCR Pipeline
-          │                         │
-          └────────────┬────────────┘
-                       ▼
-             Structured Field Extraction
-                       ▼
-              Sanitization Layer
-                       ▼
-                Decision Engine
-                       ▼
-                 LLM Reasoning
-                       ▼
-              Human Explanation
-
----
+```text
+Upload
+   │
+   ▼
+Technical Inspection
+   │
+   ▼
+Preprocessing Gate
+   │
+   ├───────────────┐
+   │               │
+   ▼               ▼
+Native PDF     Scanned PDF
+   │               │
+   ▼               ▼
+Native Text    OCR Pipeline
+   └───────┬───────┘
+           │
+           ▼
+Structured Field Extraction
+           │
+           ▼
+Privacy Filter
+           │
+           ▼
+Decision Engine
+           │
+           ▼
+Explanation Layer (LLM)
+           │
+           ▼
+Human-Readable Output
+```
 
 # Pipeline
 
