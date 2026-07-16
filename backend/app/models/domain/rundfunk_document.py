@@ -1,11 +1,22 @@
-class RundfunkDocument(Document):
-    beitragsnummer: str | None = None
+from datetime import date
 
-    payment_period_start: date | None = None
-    payment_period_end: date | None = None
+from pydantic import BaseModel
 
-    amount_due: float | None = None
+from app.models.enums import DocumentType
 
-    includes_late_fee: bool = False
 
-    enforcement_warning: bool = False
+class RundfunkDocument(BaseModel):
+
+    document_type: DocumentType
+
+    authority: str | None = None
+
+    contribution_number: str |None = None
+
+    issue_date: date | None = None
+
+    period_start: date | None = None
+
+    period_end: date | None = None
+
+    amount: float | None = None
